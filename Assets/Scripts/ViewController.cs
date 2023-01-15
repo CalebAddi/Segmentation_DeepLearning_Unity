@@ -17,7 +17,8 @@ public class ViewController : MonoBehaviour
     [Header("Image Capture Settings")]
     public int trainingImages;
     public int validationImages;
-    public bool grayscale;  //Logic not setup yet for the initial commit
+    public bool grayscale = false;
+    public bool save = true; 
     
 
     private void Start() 
@@ -37,16 +38,19 @@ public class ViewController : MonoBehaviour
         {
             Debug.Log($"Image Captured: {nextActTime}");
 
-            if (nextActTime < trainingImages)
+            if (save)
             {
-                string filename = $"image_{nextActTime.ToString().PadLeft(5, '0')}";
-                synthesis.Save(filename, 600, 600, "ImageContainer/train", 2);
-            }
-            else if (nextActTime < trainingImages + validationImages)
-            {
-                int valFrameCount = nextActTime - trainingImages;
-                string filename = $"image_{valFrameCount.ToString().PadLeft(5, '0')}";
-                synthesis.Save(filename, 600, 600, "ImageContainer/valImage", 2);
+                if (nextActTime < trainingImages)
+                {
+                    string filename = $"image_{nextActTime.ToString().PadLeft(5, '0')}";
+                    synthesis.Save(filename, 600, 600, "ImageContainer/train", 2);
+                }
+                else if (nextActTime < trainingImages + validationImages)
+                {
+                    int valFrameCount = nextActTime - trainingImages;
+                    string filename = $"image_{valFrameCount.ToString().PadLeft(5, '0')}";
+                    synthesis.Save(filename, 600, 600, "ImageContainer/valImage", 2);
+                }
             }
         }
     }
@@ -104,6 +108,6 @@ public class ViewController : MonoBehaviour
             nextActTime += timePeriod;
             GenerateRandom();
         }
-        synthesis.OnSceneChange();
+        synthesis.OnSceneChange(grayscale);
     }
 }

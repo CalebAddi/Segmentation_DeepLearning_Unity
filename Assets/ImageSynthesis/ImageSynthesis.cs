@@ -152,7 +152,7 @@ public class ImageSynthesis : MonoBehaviour {
 	}
 
 
-	public void OnSceneChange()
+	public void OnSceneChange(bool grayscale = false)
 	{
 		var renderers = Object.FindObjectsOfType<Renderer>();
 		var mpb = new MaterialPropertyBlock();
@@ -163,7 +163,7 @@ public class ImageSynthesis : MonoBehaviour {
 			var tag = r.gameObject.tag;
 
 			mpb.SetColor("_ObjectColor", ColorEncoding.EncodeIDAsColor(id));
-			mpb.SetColor("_CategoryColor", ColorEncoding.EncodeLayerAsColor(layer));
+			mpb.SetColor("_CategoryColor", ColorEncoding.EncodeLayerAsColor(layer, grayscale));
 			r.SetPropertyBlock(mpb);
 		}
 	}
