@@ -161,9 +161,11 @@ MonoBehaviour:
   minObj: 10
   maxObj: 50
   nextActTime: 2
-  timePeriod: 3
+  timePeriod: 2
   trainingImages: 40
   validationImages: 20
+  grayscale: 1
+  save: 1
 --- !u!4 &797002492
 Transform:
   m_ObjectHideFlags: 0
